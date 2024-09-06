@@ -13,7 +13,7 @@ namespace SMSPortal.BL.Managers
     {
         IEnumerable<ReportReadVM> GetAll();
         ReportDetailsVM? GetDetailsById(int id);
-
+        public int GenerateUniqueSubmissionId();
         Report AddReport(ReportAddVM reportAddVM);
 
         ReportEditVM? GetforEditById(int id);

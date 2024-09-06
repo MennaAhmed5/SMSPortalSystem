@@ -21,6 +21,8 @@ namespace SMSPortal.MVC.Controllers
             _reportManager = reportManager;
         }
 
+       
+
         [HttpGet]
         [Authorize]
         [Authorize(Roles = "Sender,Admin")]
@@ -35,7 +37,7 @@ namespace SMSPortal.MVC.Controllers
             return View("MessageForm", model);
         }
 
-
+        
         [HttpPost]
         [Authorize(Roles = "Sender,Admin")]
         [ValidateAntiForgeryToken]
@@ -58,9 +60,10 @@ namespace SMSPortal.MVC.Controllers
             // Validate CSV file
             if (messageTempleteFormVM.CsvFile != null)
                 {
-                    int subId = 0;
-                     //create stream reader object to read file
-                    using (var reader = new StreamReader(messageTempleteFormVM.CsvFile.OpenReadStream()))
+                var subId = _reportManager.GenerateUniqueSubmissionId(); // Generate a new submissionId
+
+                //create stream reader object to read file
+                using (var reader = new StreamReader(messageTempleteFormVM.CsvFile.OpenReadStream()))
                     {
                         var phoneNumbers = new List<string>();
                         //read file line by line
@@ -89,7 +92,7 @@ namespace SMSPortal.MVC.Controllers
                     }
 
                     var SelectedteTemplete = _messageTempleteManager.GetDetailsById(messageTempleteFormVM.SelectedTemplateId);
-
+ 
                     // Proceed with sending messages using Twilio
                     foreach (var phoneNumber in phoneNumbers)
                     {
@@ -101,7 +104,7 @@ namespace SMSPortal.MVC.Controllers
                         }
 
                         // Twilio sending logic here
-                         subId = _smsService.Send(phoneNumber, processedMessage);
+                         subId = _smsService.Send(phoneNumber, processedMessage,subId);
                         
                      
                     }

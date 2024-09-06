@@ -10,7 +10,7 @@ namespace SMSPortal.DAL.Repository
 {
     public interface IReportRepository : IGenericRepository<Report>
     {
-        public IEnumerable<Report> FilterReports(string? userName, string? number, int? submissionId);
+        public  IEnumerable<Report> FilterReports(string? userName, string? number, int? submissionId);
 
     }
 }

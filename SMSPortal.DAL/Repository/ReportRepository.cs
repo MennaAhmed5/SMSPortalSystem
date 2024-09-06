@@ -22,20 +22,20 @@ namespace SMSPortal.DAL.Repository
 
             if (!string.IsNullOrWhiteSpace(userName))
             {
-                 reports = reports.Where(r => r.SenderUsername.Contains(userName, StringComparison.OrdinalIgnoreCase));
+                reports = reports.Where(r => r.SenderUsername.Contains(userName.ToLower()));
             }
 
-            if (!string.IsNullOrEmpty(number))
+            if (!string.IsNullOrWhiteSpace(number))
             {
-                reports = reports.Where(r => r.PhoneNumber.Contains(number));
+                reports = reports.Where(r => r.PhoneNumber.Contains(number.Trim()));
             }
 
-            if (submissionId != 0)
+            if (submissionId.HasValue)
             {
-                reports = reports.Where(r => r.SubmissionId == submissionId);
+                reports = reports.Where(r => r.SubmissionId == submissionId.Value);
             }
 
-            return reports;
+            return reports.ToList();
         }
     }
 }

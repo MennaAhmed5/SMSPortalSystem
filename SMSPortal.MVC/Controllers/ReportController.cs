@@ -11,7 +11,7 @@ namespace SMSPortal.MVC.Controllers
             _reportManager = reportManager;
         }
         [Authorize(Roles = "Viewer,Admin, Sender")]
-        public IActionResult Index(string? userName, string? number, int? submissionId)
+        public IActionResult Index([FromQuery] string? userName, string? number, int? submissionId)
         {
             var reports = _reportManager.GetFilteredReports(userName, number, submissionId);
 

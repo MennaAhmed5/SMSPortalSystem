@@ -18,7 +18,7 @@ namespace SMSPortal.BL.Managers
         {
             _unitOfWork = unitOfWork;
         }
-        private int GenerateUniqueSubmissionId()
+        public int GenerateUniqueSubmissionId()
         {
              
             return new Random().Next(1, 1000000);  
@@ -28,7 +28,7 @@ namespace SMSPortal.BL.Managers
             Report report= new Report()
             {
                  SenderUsername = reportAddVM.SenderUsername,
-                 SubmissionId =  GenerateUniqueSubmissionId(),
+                 SubmissionId = reportAddVM.SubmissionId,
                  PhoneNumber = reportAddVM.PhoneNumber,
                  MessageContent = reportAddVM.MessageContent,                 
                  Status = reportAddVM.Status,
@@ -95,8 +95,19 @@ namespace SMSPortal.BL.Managers
         {
             var reports = _unitOfWork.ReportRepository.FilterReports(userName, number, submissionId);
 
-            IEnumerable <ReportReadVM> reportsReadVM = reports.Select(r => new ReportReadVM(r.Id, r.SenderUsername, r.PhoneNumber, r.MessageContent, r.SendingDate, r.Status, r.Details,r.SubmissionId));
-            return reportsReadVM;
+            var reportsReadVM = reports.Select(r => new ReportReadVM(
+                r.Id,
+                r.SenderUsername,
+                r.PhoneNumber,
+                r.MessageContent,
+                r.SendingDate,
+                r.Status,
+                r.Details,
+                r.SubmissionId)).ToList();
+
+            return reportsReadVM;  
+
+             
         }
     }
 }

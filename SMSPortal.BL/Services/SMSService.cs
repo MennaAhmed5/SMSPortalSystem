@@ -27,7 +27,7 @@ namespace SMSPortal.BL.Services
             _httpContextAccessor = httpContextAccessor;
 
         }
-        public int Send(string mobileNumber, string body)
+        public int Send(string mobileNumber, string body, int submissionId)
         {
             try
             {
@@ -41,10 +41,11 @@ namespace SMSPortal.BL.Services
                 var username = _httpContextAccessor.HttpContext.User.Identity.Name;
                 var reportAddVM = new ReportAddVM
                 {
-                    SenderUsername = username,                    
+                    SenderUsername = username,
+                    SubmissionId = submissionId,
                     PhoneNumber = mobileNumber,
                     MessageContent = body,
-                    SendingDate = DateTime.UtcNow,
+                    SendingDate = DateTime.Now,
                     Status = Status.Success,
                     Details = "Message sent successfully."
                 };
@@ -58,9 +59,10 @@ namespace SMSPortal.BL.Services
                 ReportAddVM reportAddVM = new ReportAddVM()
                 {
                     SenderUsername = username,
+                    SubmissionId = submissionId,
                     PhoneNumber = mobileNumber,
                     MessageContent = body,
-                    SendingDate = DateTime.UtcNow,
+                    SendingDate = DateTime.Now,
                     Status = Status.Fail,
                     Details = ex.Message
 

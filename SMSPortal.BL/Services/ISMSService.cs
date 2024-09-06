@@ -9,7 +9,7 @@ namespace SMSPortal.BL.Services
 {
     public interface ISMSService
     {
-        int Send(string mobileNumber, string Message);
+        int Send(string mobileNumber, string Message, int submissionId);
          
     }
 }
