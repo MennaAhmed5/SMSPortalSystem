@@ -277,7 +277,7 @@ namespace SMSPortal.DAL.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("submissionId")
+                    b.Property<int>("SubmissionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

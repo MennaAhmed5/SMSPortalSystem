@@ -58,6 +58,7 @@ namespace SMSPortal.MVC.Controllers
             // Validate CSV file
             if (messageTempleteFormVM.CsvFile != null)
                 {
+                    int subId = 0;
                      //create stream reader object to read file
                     using (var reader = new StreamReader(messageTempleteFormVM.CsvFile.OpenReadStream()))
                     {
@@ -100,7 +101,7 @@ namespace SMSPortal.MVC.Controllers
                         }
 
                         // Twilio sending logic here
-                        var result = _smsService.Send(phoneNumber, processedMessage);
+                         subId = _smsService.Send(phoneNumber, processedMessage);
                         
                      
                     }
@@ -108,7 +109,7 @@ namespace SMSPortal.MVC.Controllers
 
                 }
 
-                return View("Index", "Home");
+                return RedirectToAction("Index", "Report", new { submissionId = subId });
 
             }
 

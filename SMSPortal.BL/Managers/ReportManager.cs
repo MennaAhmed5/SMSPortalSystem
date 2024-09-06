@@ -23,7 +23,7 @@ namespace SMSPortal.BL.Managers
              
             return new Random().Next(1, 1000000);  
         }
-        public void AddReport(ReportAddVM reportAddVM)
+        public Report AddReport(ReportAddVM reportAddVM)
         {
             Report report= new Report()
             {
@@ -38,6 +38,7 @@ namespace SMSPortal.BL.Managers
 
             _unitOfWork.ReportRepository.Add(report);
             _unitOfWork.SaveChanges();
+            return report;
         }
 
         public object Delete(int id)

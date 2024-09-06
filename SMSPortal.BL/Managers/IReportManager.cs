@@ -14,7 +14,7 @@ namespace SMSPortal.BL.Managers
         IEnumerable<ReportReadVM> GetAll();
         ReportDetailsVM? GetDetailsById(int id);
 
-        void AddReport(ReportAddVM reportAddVM);
+        Report AddReport(ReportAddVM reportAddVM);
 
         ReportEditVM? GetforEditById(int id);
 

@@ -27,7 +27,7 @@ namespace SMSPortal.BL.Services
             _httpContextAccessor = httpContextAccessor;
 
         }
-        public MessageResource Send(string mobileNumber, string body)
+        public int Send(string mobileNumber, string body)
         {
             try
             {
@@ -37,7 +37,21 @@ namespace SMSPortal.BL.Services
                     from: new Twilio.Types.PhoneNumber(_twilio.TwilioPhoneNumber),
                     to: mobileNumber
                     );
-                return result;
+                // Assuming you have a method to add a report and it returns an ID
+                var username = _httpContextAccessor.HttpContext.User.Identity.Name;
+                var reportAddVM = new ReportAddVM
+                {
+                    SenderUsername = username,                    
+                    PhoneNumber = mobileNumber,
+                    MessageContent = body,
+                    SendingDate = DateTime.UtcNow,
+                    Status = Status.Success,
+                    Details = "Message sent successfully."
+                };
+
+                var newReport = _reportManager.AddReport(reportAddVM); // Add report and get the ID
+                return newReport.SubmissionId;
+            
             } catch(Exception ex)
             {
                 var username = _httpContextAccessor.HttpContext.User.Identity.Name;
@@ -51,8 +65,10 @@ namespace SMSPortal.BL.Services
                     Details = ex.Message
 
                 };
-                _reportManager.AddReport(reportAddVM);
-                return null;
+
+                var newReport = _reportManager.AddReport(reportAddVM); // Add report and get the ID
+                return newReport.SubmissionId;
+
             }
             
         }

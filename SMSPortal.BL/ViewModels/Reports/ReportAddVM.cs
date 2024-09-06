@@ -11,8 +11,7 @@ namespace SMSPortal.BL.ViewModels.Reports
     public class ReportAddVM
     {
         public int Id { get; set; }
-        public int submissionId { get; set; }
-
+ 
         public string SenderUsername { get; set; }
 
         public string PhoneNumber { get; set; }

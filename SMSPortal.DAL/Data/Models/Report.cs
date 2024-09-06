@@ -20,7 +20,7 @@ namespace SMSPortal.DAL.Data.Models
         [Key]
         public int Id { get; set; }
 
- 
+       
         public int SubmissionId { get; set; }
         public string SenderUsername { get; set; }
 

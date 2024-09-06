@@ -12,8 +12,8 @@ using SMSPortal.DAL.Data.Context;
 namespace SMSPortal.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240906090250_addrandomField")]
-    partial class addrandomField
+    [Migration("20240906124224_ADDDB")]
+    partial class ADDDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -280,7 +280,7 @@ namespace SMSPortal.DAL.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("submissionId")
+                    b.Property<int>("SubmissionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

@@ -10,10 +10,10 @@ namespace SMSPortal.MVC.Controllers
         public ReportController(IReportManager reportManager) {
             _reportManager = reportManager;
         }
-        [Authorize(Roles = "Viewer,Admin")]
-        public IActionResult Index(string? userName, string? number, string? submissionId)
+        [Authorize(Roles = "Viewer,Admin, Sender")]
+        public IActionResult Index(string? userName, string? number, int? submissionId)
         {
-            var reports = _reportManager.GetFilteredReports(userName, number);
+            var reports = _reportManager.GetFilteredReports(userName, number, submissionId);
 
             return View(reports);
         }
