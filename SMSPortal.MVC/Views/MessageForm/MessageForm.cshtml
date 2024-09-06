@@ -1,0 +1,80 @@
+﻿@using System.Text.RegularExpressions
+
+@model MessageTempleteFormVM
+
+<div class="container my-5">
+    <h1 class="display-4 text-center mb-4">Create Message</h1>
+
+    <form id="messageForm" asp-action="CreateMessage" method="post" enctype="multipart/form-data">
+        <div class="table-responsive mb-4">
+            <table class="table table-hover table-bordered text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Content</th>
+                        <th>Select</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var template in Model.Templates)
+                    {
+                        <tr>
+                            <td>@template.Name</td>
+                            <td>@template.Content</td>
+                            <td>
+                                <button type="button"
+                                        name="SelectedTemplateId"
+                                        value="@template.Id"
+                                        data-placeholders-count="@template.PlaceHoldersCount"
+                                        data-content="@template.Content"
+                                        class="btn btn-success select-template-btn">
+                                    Select
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            
+            <input type="hidden" id="SelectedTemplateId" name="SelectedTemplateId" />
+            <span class="text-danger" asp-validation-for="SelectedTemplateId"></span>
+            <div class="placeholders-container"></div>
+
+            <div class="form-group">
+                <label for="CsvFile">Upload CSV with Phone Numbers</label>
+                <input type="file" class="form-control" asp-for="CsvFile" accept=".csv" width="75" />
+                <span class="text-danger" asp-validation-for="CsvFile"></span>
+            </div>
+            <br />
+           
+            
+            <button type="submit" class="btn btn-primary">Send Messages</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.select-template-btn').click(function () {
+                var templateId = $(this).val();
+                var content = $(this).attr('data-content');
+                var placeholdersCount = $(this).attr('data-placeholders-count');
+                var form = $('#messageForm');
+
+                $('#SelectedTemplateId').val(templateId);
+                form.find('.placeholders-container').html('');
+
+                for (let i = 0; i < placeholdersCount; i++) {
+                    let formGroup = `
+                                <div class="form-group">
+                                    <label for="Placeholder_{${ i }}">Value for Placeholder {${ i }}</label>
+                                    <input type="text" class="form-control" id="Placeholder_{${i }}" name="PlaceholderValues[{${ i }}]" required />
+                                </div>`;
+                    form.find('.placeholders-container').append(formGroup);
+                }
+            });
+        });
+    </script>
+}

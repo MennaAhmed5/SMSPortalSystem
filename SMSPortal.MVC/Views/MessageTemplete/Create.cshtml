@@ -1,0 +1,45 @@
+﻿@model MessageTempleteAddVM
+
+@{
+    ViewData["Title"] = "Create Message Template";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-light shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Create Message Template</h2>
+
+                    <form asp-validation-summary="ModelOnly" asp-action="Create" method="post">
+                        <div class="mb-4">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control form-control-lg" placeholder="Enter template name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Content" class="form-label"></label>
+                            <textarea asp-for="Content" class="form-control form-control-lg" rows="6" placeholder="Enter template content"></textarea>
+                            <div class="form-text">Use placeholders like {0}, {1}, etc. for dynamic content.</div>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" asp-controller="MessageTemplete" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Create
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    
+}

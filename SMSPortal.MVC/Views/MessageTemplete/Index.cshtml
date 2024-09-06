@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "Message Templates";
+}
+
+ <div class="container my-5">
+    <h1 class="display-4 text-center mb-4">Message Templates</h1>
+   
+
+    <p class="text-right mb-4">
+        <a class="btn btn-primary btn-lg" href="/MessageTemplete/Create">
+            <i class="fas fa-plus-circle"></i> Create 
+        </a>
+    </p>
+
+    <div class="table-responsive">
+        <table id="myTable" class="table table-hover table-bordered text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Content</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/MessageTemplete.js"></script>
+}
+
+
